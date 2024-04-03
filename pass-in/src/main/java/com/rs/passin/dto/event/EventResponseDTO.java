@@ -1,7 +1,9 @@
 package com.rs.passin.dto.event;
 
 import com.rs.passin.domain.event.Event;
+import lombok.Getter;
 
+@Getter
 public class EventResponseDTO {
     EventDetailDTO event;
 

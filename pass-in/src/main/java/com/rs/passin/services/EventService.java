@@ -2,6 +2,7 @@ package com.rs.passin.services;
 
 import com.rs.passin.domain.attendee.Attendee;
 import com.rs.passin.domain.event.Event;
+import com.rs.passin.domain.event.exceptions.EventNotFoundException;
 import com.rs.passin.dto.event.EventIdDto;
 import com.rs.passin.dto.event.EventRequestDTO;
 import com.rs.passin.dto.event.EventResponseDTO;
@@ -22,7 +23,7 @@ public class EventService {
 
     public EventResponseDTO getEventDetail(String eventId){
         Event event = this.eventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Event not found with ID: " + eventId));
+                .orElseThrow(() -> new EventNotFoundException("Event not found with ID: " + eventId));
 
         List<Attendee> attendeeList = this.attendeeRepository.findByEventId(eventId);
 

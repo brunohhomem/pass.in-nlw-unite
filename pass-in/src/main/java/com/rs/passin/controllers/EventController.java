@@ -1,5 +1,7 @@
 package com.rs.passin.controllers;
 
+import com.rs.passin.dto.attendee.AttendeeIdDTO;
+import com.rs.passin.dto.attendee.AttendeeRequestDTO;
 import com.rs.passin.dto.attendee.AttendeesListResponseDTO;
 import com.rs.passin.dto.event.EventIdDto;
 import com.rs.passin.dto.event.EventRequestDTO;
@@ -37,4 +39,13 @@ public class EventController {
         var uri = uriComponentsBuilder.path("/events/{id}").buildAndExpand(eventIdDto.id()).toUri();
         return ResponseEntity.created(uri).body(eventIdDto);
     }
+
+    @PostMapping("/{eventId}/attendees")
+    public ResponseEntity<AttendeeIdDTO> registerAttendee(@PathVariable String eventId, @RequestBody AttendeeRequestDTO body, UriComponentsBuilder uriComponentsBuilder){
+        AttendeeIdDTO attendeeIdDTO = eventService.registerAttendeeOnEvent(eventId, body);
+        var uri = uriComponentsBuilder.path("/attendees/{attendeeId}/badge")
+                .buildAndExpand(attendeeIdDTO.id()).toUri();
+        return ResponseEntity.created(uri).body(attendeeIdDTO);
+    }
+
 }

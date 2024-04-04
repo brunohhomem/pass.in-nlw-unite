@@ -1,6 +1,7 @@
 package com.rs.passin.config;
 
 import com.rs.passin.domain.attendee.exceptions.AttendeeAlreadyExistException;
+import com.rs.passin.domain.attendee.exceptions.AttendeeNotFoundException;
 import com.rs.passin.domain.event.exceptions.EventFullException;
 import com.rs.passin.domain.event.exceptions.EventNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,11 @@ public class ExceptionEntityHandler {
 
     @ExceptionHandler(EventNotFoundException.class) //Indica qual a exceção o método lida
     public ResponseEntity handleEventNotFound(EventNotFoundException e){
+        return ResponseEntity.notFound().build(); //Retorna 404
+    }
+
+    @ExceptionHandler(AttendeeNotFoundException.class) //Indica qual a exceção o método lida
+    public ResponseEntity handleAttendeeNotFound(AttendeeNotFoundException e){
         return ResponseEntity.notFound().build(); //Retorna 404
     }
 
